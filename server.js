@@ -14,7 +14,10 @@ app.use(express.static("public"));
 // ================= DB CONNECTION =================
 mongoose.connect(process.env.MONGO_URL)
 .then(() => console.log("MongoDB Connected"))
-.catch(err => console.log("DB Error:", err));
+.catch(err => {
+    console.error("DB ERROR:", err);
+    process.exit(1);
+});
 
 // ================= SCHEMA =================
 const taskSchema = new mongoose.Schema({
