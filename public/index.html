@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Task Manager Book</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="book">
+
+  <!-- ===== COVER ===== -->
+  <section class="page active">
+    <div class="cover">
+      <h1>Task Manager</h1>
+      <button onclick="nextPage()">Open</button>
+    </div>
+  </section>
+
+  <!-- ===== CREATE TASK ===== -->
+  <section class="page">
+    <div class="half left">
+      <h2>Create Task</h2>
+      <div class="form-box">
+        <input id="title" placeholder="Title">
+        <textarea id="desc" placeholder="Description"></textarea>
+        <input type="date" id="date">
+        <button onclick="addTask()">Add Task</button>
+        <p id="error"></p>
+      </div>
+    </div>
+
+    <div class="half right">
+      <h2>All Tasks</h2>
+      <input type="date" id="viewDate" onchange="fetchTasks()">
+      <ul id="taskList"></ul>
+    </div>
+  </section>
+
+  <!-- ===== UPDATE ===== -->
+  <section class="page">
+    <div class="half left">
+      <h2>Update Task</h2>
+      <input type="date" id="updateDate" onchange="loadUpdate()">
+    </div>
+
+    <div class="half right">
+      <ul id="updateList"></ul>
+    </div>
+  </section>
+
+  <!-- ===== DELETE ===== -->
+  <section class="page">
+    <div class="half left">
+      <h2>Delete Task</h2>
+      <input type="date" id="deleteDate" onchange="loadDelete()">
+    </div>
+
+    <div class="half right">
+      <ul id="deleteList"></ul>
+    </div>
+  </section>
+
+  <!-- ===== COMPLETE ===== -->
+  <section class="page">
+    <div class="half left">
+      <h2>Complete Task</h2>
+      <input type="date" id="completeDate" onchange="loadComplete()">
+    </div>
+
+    <div class="half right">
+      <ul id="completeList"></ul>
+    </div>
+  </section>
+
+  <!-- ===== FILTER ===== -->
+  <section class="page">
+    <div class="half left">
+      <h2>Filter Tasks</h2>
+      <input type="date" id="filterDate" onchange="filterTasks()">
+    </div>
+
+    <div class="half right">
+      <ul id="filterList"></ul>
+    </div>
+  </section>
+
+</div>
+
+<!-- NAV BUTTONS -->
+<button class="nav prev" onclick="prevPage()">‹</button>
+<button class="nav next" onclick="nextPage()">›</button>
+
+<script src="script.js"></script>
+
+<script>
+let current = 0;
+const pages = document.querySelectorAll(".page");
+
+const prevBtn = document.querySelector(".prev");
+const nextBtn = document.querySelector(".next");
+
+function showPage(i) {
+  pages.forEach(p => p.classList.remove("active"));
+  pages[i].classList.add("active");
+
+  // ✅ BUTTON CONTROL FIX
+  if (i === 0) {
+    prevBtn.style.display = "none";
+  } else {
+    prevBtn.style.display = "block";
+  }
+
+  if (i === pages.length - 1) {
+    nextBtn.style.display = "none";
+  } else {
+    nextBtn.style.display = "block";
+  }
+}
+
+function nextPage() {
+  if (current < pages.length - 1) {
+    current++;
+    showPage(current);
+  }
+}
+
+function prevPage() {
+  if (current > 0) {
+    current--;
+    showPage(current);
+  }
+}
+
+// initialize
+showPage(current);
+</script>
+
+</body>
+</html>
